@@ -1,6 +1,6 @@
 //
 //  main.c
-//  source_4_2_01
+//  exercise_4_2_01
 //
 //  Created by chengaojie on 16/9/7.
 //  Copyright © 2016年 chengaojie. All rights reserved.
@@ -29,9 +29,9 @@ int main(int argc, const char * argv[]) {
 double natof(char s[]) {
     
     double val, power;
-    int i, sign;
+    int exp, i, sign;
     
-    for (i = 0; isspace(s[i]); i++) {
+    for (i = 0; isspace(s[i]); i++) {   /* skip white space */
         ;
     }
     
@@ -54,7 +54,31 @@ double natof(char s[]) {
         power *= 10;
     }
     
-    return sign * val / power;
+    val = sign * val / power;
+    
+    if (s[i] == 'e' || s[i] == 'E') {
+        sign = (s[++i] == '-') ? -1 : 1;
+        
+        if (s[i] == '+' || s[i] == '-') {
+            i++;
+        }
+        
+        for (exp = 0; isdigit(s[i]); i++) {
+            exp = 10 * exp + (s[i] - '0');
+        }
+        
+        if (sign == 1) {
+            while (exp-- > 0) {
+                val *= 10;
+            }
+        } else {
+            while (exp -- > 0) {
+                val /= 10;
+            }
+        }
+    }
+    
+    return val;
 }
 
 /* ngetline: get line into s, return length */
