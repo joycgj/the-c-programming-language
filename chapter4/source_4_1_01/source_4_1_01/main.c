@@ -10,7 +10,7 @@
 #define MAXLINE 1000    /* maxinum input line length */
 
 int ngetline(char line[], int max);
-int nstrindex(char source[], char searchfor[]);
+int nstrindex(char s[], char t[]);
 
 char pattern[] = "ould";    /* pattern to search for */
 
