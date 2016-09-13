@@ -4,4 +4,3 @@ void push(double);
 double pop(void);
 int getop(char []);
 int ngetch(void);
-void nungetch(int);

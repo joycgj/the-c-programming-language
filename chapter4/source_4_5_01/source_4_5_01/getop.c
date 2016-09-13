@@ -5,10 +5,18 @@
 /* getop: get next operator or numeric operand */
 int getop(char s[]) {
     
-    int i, c;
+    int c, i;
+    static int lastc = 0;
     
-    while ((s[0] = c = ngetch()) == ' ' || c == '\t') {
-        ;
+    if (lastc == 0) {
+        c = ngetch();
+    } else {
+        c = lastc;
+        lastc = 0;
+    }
+    
+    while ((s[0] = c) == ' ' || c == '\t') {
+        c = ngetch();
     }
     
     s[1] = '\0';
@@ -32,7 +40,7 @@ int getop(char s[]) {
     s[i] = '\0';
     
     if (c != EOF) {
-        nungetch(c);
+        lastc = c;
     }
     
     return NUMBER;

@@ -5,6 +5,7 @@
 #define MAXOP 100 /* max size of operand or operator */
 
 int main(int argc, const char * argv[]) {
+
     int type;
     double op2;
     char s[MAXOP];
