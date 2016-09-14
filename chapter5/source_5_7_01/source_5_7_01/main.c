@@ -47,6 +47,61 @@ int month_day(int year, int yearday, int *pmonth, int *pday) {
     return 0;
 }
 
+int day_of_year_pointer(int year, int month, int day) {
+    int i, leap;
+    char *p;
+    
+    if (year < 1752 || month < 1 || month > 12 || day < 1) {
+        return -1;
+    }
+    
+    leap = (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
+    
+    if (day > daytab[leap][month]) {
+        return -1;
+    }
+    
+//    for (i = 1; i < month; i++) {
+//        day += daytab[leap][i];
+//    }
+    
+    p = &daytab[leap][1];
+    
+    for (i = 1; i < month; i++) {
+        day += *p;
+        ++p;
+    }
+    
+    return day;
+}
+
+void month_day_pointer(int year, int yearday, int *pmonth, int *pday) {
+    int i, leap;
+    char *p;
+    
+    if (year < 1752 || yearday < 1) {
+        return -1;
+    }
+    
+    leap = (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
+    if ((leap && yearday > 366) || (!leap && yearday > 365)) {
+        return -1;
+    }
+    
+//    for (i = 1; yearday > daytab[leap][i]; i++) {
+//        yearday -= daytab[leap][i];
+//    }
+    
+    p = &daytab[leap][1];
+    for (i = 1; yearday > *p; i++) {
+        yearday -= *p;
+        ++p;
+    }
+    
+    *pmonth = i;
+    *pday = yearday;
+}
+
 int main(int argc, const char * argv[]) {
     int year, month, day, yearday;
     
